@@ -5,7 +5,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-
+import StartButton from './StartButton'
+import StopButton from './StopButton'
 import {TaskI} from '../../interfaces/task'
 
 const styles = {
@@ -22,9 +23,19 @@ interface TaskProps extends TaskI {
   classes: {
     card: string,
   },
+  pomodoros: {
+    runningTask: Number
+  },
+  onStartPomodoro: Function,
+  onStopPomodoro: Function
 }
 
-const Task: React.SFC<TaskProps> = ({id, name, description, created_at, updated_at, classes}) => {
+const Task: React.SFC<TaskProps> = ({ id, name, description, created_at, updated_at, classes, pomodoros, onStartPomodoro, onStopPomodoro}) => {
+
+  const button = pomodoros.runningTask === id ?
+    <StopButton stop={onStopPomodoro} /> :
+    <StartButton start={onStartPomodoro} taskId={id} />
+
   return(
     <Card className={classes.card}>
       <CardContent>
@@ -35,7 +46,7 @@ const Task: React.SFC<TaskProps> = ({id, name, description, created_at, updated_
           5:30
         </Typography>
         <div>
-          button goes here
+          {button}
         </div>
       </CardContent>
     </Card>

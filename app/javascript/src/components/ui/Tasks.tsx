@@ -1,6 +1,6 @@
 import * as React from 'react';
-import TaskI from '../../interfaces/task'
-import Task from './Task'
+import { TaskI } from '../../interfaces/task'
+import Task from '../containers/Task'
 
 const styles = {
   display: 'flex' as 'flex',

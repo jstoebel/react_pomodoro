@@ -7,17 +7,21 @@ import C from '../constants';
 */ 
 interface actionI {
   type: String,
-  payload: Number
+  payload?: Number
 }
 
-const reducer: Reducer<Number> = (state=null, action: actionI) => {
+interface ReducerI {
+  runningTask: Number
+}
+
+const reducer: Reducer<ReducerI> = (state={runningTask: null}, action: actionI) => {
   switch (action.type) {
     case C.START_POMODORO:
       // mark a task as running a pomodoro
-      return action.payload
+      return {runningTask: action.payload}
     case C.STOP_POMODORO:
       // no tasks are running a pomodoro
-      return null
+      return { runningTask: null }
   }
   return state;
 }
