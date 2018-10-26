@@ -1,0 +1,9 @@
+const constants = {
+  AUTH_USER: 'AUTH_USER',
+  START_POMODORO: 'START_POMODORO',
+  STOP_POMODORO: 'STOP_POMODORO',
+  ADD_TASKS: 'ADD_TASKS',
+  REMOVE_TASK: 'REMOVE_TASK'
+};
+
+export default constants;
