@@ -5,6 +5,7 @@ import Tasks from '../ui/Tasks';
 const mapStateToProps = (state) => {
   return ({
     tasks: state.tasks,
+    pomodoros: state.pomodoros,
   });
 };
 

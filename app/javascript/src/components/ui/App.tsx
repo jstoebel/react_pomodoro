@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Tasks from '../ui/Tasks';
 import NewTask from '../containers/NewTask'
-import TaskI from '../../interfaces/task'
+import {TaskI} from '../../interfaces/task'
 
 interface AppProps {
   tasks: Array<TaskI>,

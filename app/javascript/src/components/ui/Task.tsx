@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import StartButton from './StartButton'
 import StopButton from './StopButton'
 import {TaskI} from '../../interfaces/task'
+import Timer from '../containers/Timer'
 
 const styles = {
   card: {
@@ -30,9 +31,10 @@ interface TaskProps extends TaskI {
   onStopPomodoro: Function
 }
 
-const Task: React.SFC<TaskProps> = ({ id, name, description, created_at, updated_at, classes, pomodoros, onStartPomodoro, onStopPomodoro}) => {
+const Task: React.SFC<TaskProps> = ({ id, name, classes, pomodoros, onStartPomodoro, onStopPomodoro}) => {
 
-  const button = pomodoros.runningTask === id ?
+  const isRunning = pomodoros.runningTask === id
+  const button = isRunning ?
     <StopButton stop={onStopPomodoro} /> :
     <StartButton start={onStartPomodoro} taskId={id} />
 
@@ -42,12 +44,10 @@ const Task: React.SFC<TaskProps> = ({ id, name, description, created_at, updated
         <Typography variant="headline">
           {name}
         </Typography>
-        <Typography variant="display1">
-          5:30
-        </Typography>
         <div>
           {button}
         </div>
+        {isRunning && <Timer />}
       </CardContent>
     </Card>
   )

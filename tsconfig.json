@@ -8,7 +8,10 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "target": "es5",
-    "jsx": "react"
+    "jsx": "react",
+    "types": [
+      "@types/moment-duration-format"
+    ]
   },
   "exclude": [
     "**/*.spec.ts",
