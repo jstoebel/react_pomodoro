@@ -11,21 +11,17 @@ interface actionI {
   payload?: Number
 }
 
-const reducer: Reducer<PomodoroI> = (state = { runningTask: null, doneAt: null}, action: actionI) => {
+const reducer: Reducer<PomodoroI> = (state = { runningTask: null}, action: actionI) => {
   switch (action.type) {
     case C.START_POMODORO:
       // mark a task as running a pomodoro
       return {
         runningTask: action.payload,
-        doneAt: moment()
-          .add(C.POMODORO_TIME.minutes, 'minutes')
-          .add(C.POMODORO_TIME.seconds, 'seconds')
       }
     case C.STOP_POMODORO:
       // no tasks are running a pomodoro
       return { 
         runningTask: null,
-        doneAt: null
       }
   }
   return state;

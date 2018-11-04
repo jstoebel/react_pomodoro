@@ -5,25 +5,31 @@ import * as moment from 'moment';
 import Typography from '@material-ui/core/Typography';
 
 interface TimerProps {
-  isOn: Boolean,
+  minutes: Number,
+  seconds: any //moment.unitOfTime.DurationConstructor,
   pomodoros: PomodoroI
 }
 
 
 interface TimerState {
-  timeLeft: string,
+  timeLeft: String,
+  doneAt: moment.Moment,
 }
 
 class Timer extends React.Component<TimerProps, TimerState> {
   timerHandle: NodeJS.Timer
 
-  constructor(p: TimerProps, s: { timeLeft: string}) {
-    super(p, s)
+  constructor(p: TimerProps, s: TimerState) {
+    super(p, s);
+    const {minutes, seconds} = this.props;
+    const timeLeft = moment.utc(moment.duration({ minutes: minutes, seconds: seconds } as moment.DurationInputObject).asMilliseconds()).format("mm:ss")
     this.state = { 
-      timeLeft: `${C.POMODORO_TIME.minutes}:${C.POMODORO_TIME.seconds}`
+      timeLeft: timeLeft,
+      doneAt: moment()
+        .add(minutes as unknown as moment.unitOfTime.DurationConstructor, 'minutes')
+        .add(seconds as unknown as moment.unitOfTime.DurationConstructor, 'seconds'),
     }
-    // set the intervarl
-    this.timerHandle = setInterval(this.tick.bind(this), 500)
+    this.timerHandle = setInterval(this.tick.bind(this), 100)
   }
 
   componentWillUnmount() {
@@ -31,16 +37,23 @@ class Timer extends React.Component<TimerProps, TimerState> {
   }
 
   tick() {
-    const timeLeft = this.props.pomodoros.doneAt.diff(moment())
-    const timeLeftFormatted = moment.utc(timeLeft).format('mm:ss')
-    this.setState({
-      timeLeft: timeLeftFormatted
-    })
+    const timeLeft = this.state.doneAt.diff(moment())
+    if (timeLeft > 0 ) {
+      this.setState({
+        timeLeft: moment.utc(timeLeft).format('mm:ss')
+      })
+    } else {
+      this.wrapUp()
+    }
     // update time left and update state
     // if time is up -> wrapUp
   }
   wrapUp() {
     // what happens when the pomodoro is done?
+    console.log('hello from wrapUp');
+    // play a sound
+    // notification -> "your pomodoro is done, write a reflection?"
+    clearInterval(this.timerHandle)
   }
 
   render() {

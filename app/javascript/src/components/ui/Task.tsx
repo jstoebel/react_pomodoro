@@ -9,6 +9,7 @@ import StartButton from './StartButton'
 import StopButton from './StopButton'
 import {TaskI} from '../../interfaces/task'
 import Timer from '../containers/Timer'
+import C from '../../constants'
 
 const styles = {
   card: {
@@ -47,7 +48,7 @@ const Task: React.SFC<TaskProps> = ({ id, name, classes, pomodoros, onStartPomod
         <div>
           {button}
         </div>
-        {isRunning && <Timer />}
+        {isRunning && <Timer {...C.POMODORO_TIME}/>}
       </CardContent>
     </Card>
   )
