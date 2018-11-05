@@ -3,17 +3,20 @@ import PomodoroI from '../../interfaces/pomodoro'
 import C from '../../constants';
 import * as moment from 'moment';
 import Typography from '@material-ui/core/Typography';
+import Sound from 'react-sound';
+const pomodoroDone = require('../../media/pomodoroDone.mp3')
 
 interface TimerProps {
   minutes: Number,
-  seconds: any //moment.unitOfTime.DurationConstructor,
-  pomodoros: PomodoroI
+  seconds: Number,
+  pomodoros: PomodoroI,
+  // onSubmitPomodoro: Function
 }
-
 
 interface TimerState {
   timeLeft: String,
   doneAt: moment.Moment,
+  running: Boolean,
 }
 
 class Timer extends React.Component<TimerProps, TimerState> {
@@ -28,6 +31,7 @@ class Timer extends React.Component<TimerProps, TimerState> {
       doneAt: moment()
         .add(minutes as unknown as moment.unitOfTime.DurationConstructor, 'minutes')
         .add(seconds as unknown as moment.unitOfTime.DurationConstructor, 'seconds'),
+      running: true,
     }
     this.timerHandle = setInterval(this.tick.bind(this), 100)
   }
@@ -45,22 +49,24 @@ class Timer extends React.Component<TimerProps, TimerState> {
     } else {
       this.wrapUp()
     }
-    // update time left and update state
-    // if time is up -> wrapUp
   }
   wrapUp() {
     // what happens when the pomodoro is done?
-    console.log('hello from wrapUp');
     // play a sound
     // notification -> "your pomodoro is done, write a reflection?"
     clearInterval(this.timerHandle)
+    this.setState({running: false})
   }
 
   render() {
+    const soundPlayStatus = this.state.running ? Sound.status.STOPPED : Sound.status.PLAYING
     return(
-      <Typography variant = "display1">
-        {this.state.timeLeft}
-      </Typography >
+      <div>
+        <Typography variant = "display1">
+          {this.state.timeLeft}
+        </Typography >
+        <Sound url={pomodoroDone} playStatus={soundPlayStatus} />
+      </div>
     )
   }
 }
