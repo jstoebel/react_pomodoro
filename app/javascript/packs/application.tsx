@@ -5,7 +5,7 @@ import * as React from 'react';
 import {Provider} from 'react-redux';
 import reduxThunk from 'redux-thunk';
 import {render} from 'react-dom';
-import App from '../src/components/containers/App'
+import App from '../src/components/ui/App'
 import '../src/fonts';
 
 import startingState from '../src/initialState';
@@ -32,7 +32,7 @@ const store = createStore(reducers, initialState, composeEnhancers(applyMiddlewa
 
 const statefulStore = (
   <Provider store={store}>
-    <App></App>
+    <App/>
   </Provider>
 )
 render(

@@ -1,6 +1,6 @@
 import { fetchTasks } from '../../actions';
 import { connect } from 'react-redux';
-import App from '../ui/App';
+import Home from '../ui/Home';
 
 const mapStateToProps = (state) => {
   return ({
@@ -27,4 +27,4 @@ const mapDispatchToProps = (dispatch) => {
 const mergeProps = (stateProps, dispatchProps, ownProps) =>
   Object.assign({}, stateProps, dispatchProps, ownProps);
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Home);

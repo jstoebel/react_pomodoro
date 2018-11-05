@@ -1,28 +1,21 @@
-import * as React from 'react';
-import Tasks from '../ui/Tasks';
-import NewTask from '../containers/NewTask'
-import {TaskI} from '../../interfaces/task'
+import * as React from 'react'
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import Home from '../containers/Home';
+import NotFound from './NotFound'
 
-interface AppProps {
-  tasks: Array<TaskI>,
-  onFetchTasks: Function
-}
-
-class App extends React.Component<AppProps, {}> {
-  constructor(p: AppProps, s: {}) {
-    super(p, s)
-    this.props.onFetchTasks()
-  }
-
-  render() {
-
-    return (
-      <div>
-        <NewTask />
-        <Tasks tasks={this.props.tasks}/>
-      </div>
-    )
-  }
+const App: React.SFC<{}> = (props) => {
+  return (
+    <div>
+      <Router>
+        <div>
+          <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route component={NotFound}/>
+          </Switch>
+        </div>
+      </Router>
+    </div>
+  )
 }
 
 export default App
