@@ -10,7 +10,8 @@
     "target": "es5",
     "jsx": "react",
     "types": [
-      "node"
+      "node",
+      "@types/jest"
     ]
   },
   "exclude": [
