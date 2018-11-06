@@ -12,8 +12,6 @@ const reducer: Reducer<TaskBaseI[]> = (state=initialState, action: actionI) => {
   switch (action.type) {
     case C.ADD_TASKS:
       return state.concat(action.payload)
-    case C.REMOVE_TASK:
-      return state;
   }
   return state;
 }
