@@ -1,3 +1,5 @@
+const setupFile = '<rootDir>/app/javascript/__tests__/test-setup.ts'
+
 module.exports = {
   'roots': [
     '<rootDir>/app/javascript',
@@ -5,7 +7,9 @@ module.exports = {
   'transform': {
     '^.+\\.tsx?$': 'ts-jest',
   },
-  'testRegex': '(/__tests__/.*|(\\.|/)(test|spec))\\.ts$',
+  'setupFiles': [setupFile],
+  'testPathIgnorePatterns': ['/node_modules/', setupFile],
+  'testRegex': '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
   'moduleFileExtensions': [
     'ts',
     'tsx',
@@ -13,5 +17,6 @@ module.exports = {
     'jsx',
     'json',
     'node',
+    'mp3',
   ],
 };

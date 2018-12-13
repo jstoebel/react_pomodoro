@@ -20,5 +20,6 @@
     "vendor",
     "public"
   ],
-  "compileOnSave": false
+  "compileOnSave": false,
+  "esModuleInterop": true,
 }

@@ -5,8 +5,7 @@ import to from './utils/to'
 
 const jsonHeader = { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
 
-export const fetchTasks = () => async (dispatch, getState) => {
-  console.log('fetching tasks...');
+export const fetchTasks = () => async (dispatch) => {
   const response = await axios.get('/tasks', jsonHeader)
   dispatch({
     type: C.ADD_TASKS,
@@ -14,11 +13,11 @@ export const fetchTasks = () => async (dispatch, getState) => {
   })
 }
 
-export const addTask = (taskData: TaskBaseI) => async (dispatch, getState) => {
-  
+export const addTask = (taskData: TaskBaseI) => async (dispatch) => {  
   const result = await to(axios.post('/tasks', taskData))
   
   if (result.err) {
+    // TODO: display an error message
     console.log('error adding task!');
   } else {
     dispatch({

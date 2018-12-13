@@ -4,7 +4,7 @@ import C from '../../constants';
 import * as moment from 'moment';
 import Typography from '@material-ui/core/Typography';
 import Sound from 'react-sound';
-const pomodoroDone = require('../../media/pomodoroDone.mp3')
+// const pomodoroDone = require('../../media/pomodoroDone.mp3')
 
 interface TimerProps {
   minutes: Number,
@@ -65,7 +65,7 @@ class Timer extends React.Component<TimerProps, TimerState> {
         <Typography variant = "display1">
           {this.state.timeLeft}
         </Typography >
-        <Sound url={pomodoroDone} playStatus={soundPlayStatus} />
+        {/* <Sound url={pomodoroDone} playStatus={soundPlayStatus} /> */}
       </div>
     )
   }
