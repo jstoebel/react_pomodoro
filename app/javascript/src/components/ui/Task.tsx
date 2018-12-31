@@ -45,7 +45,7 @@ const Task: React.SFC<TaskProps> = ({ id, name, classes, pomodoros, onStartPomod
         <Typography variant="headline">
           {name}
         </Typography>
-        <div>
+        <div className="button">
           {button}
         </div>
         {isRunning && <Timer {...C.POMODORO_TIME}/>}

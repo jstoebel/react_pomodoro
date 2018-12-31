@@ -1,6 +1,5 @@
 import * as React from 'react'
 import PomodoroI from '../../interfaces/pomodoro'
-import C from '../../constants';
 import * as moment from 'moment';
 import Typography from '@material-ui/core/Typography';
 import Sound from 'react-sound';
@@ -9,8 +8,6 @@ import Sound from 'react-sound';
 interface TimerProps {
   minutes: Number,
   seconds: Number,
-  pomodoros: PomodoroI,
-  // onSubmitPomodoro: Function
 }
 
 interface TimerState {
@@ -41,8 +38,10 @@ class Timer extends React.Component<TimerProps, TimerState> {
   }
 
   tick() {
+    console.log(`inside component ${moment()}`);
     const timeLeft = this.state.doneAt.diff(moment())
     if (timeLeft > 0 ) {
+      console.log(moment.utc(timeLeft).format('mm:ss'));
       this.setState({
         timeLeft: moment.utc(timeLeft).format('mm:ss')
       })
