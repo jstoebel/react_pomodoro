@@ -27,7 +27,7 @@ describe('actions', () => {
       });
     })
 
-    xit('displays error message when fetch fails', () => {
+    it('displays error message when fetch fails', () => {
       // implement me!
     })
   })
@@ -49,7 +49,7 @@ describe('actions', () => {
       })
     })
 
-    xit('displays error message when post fails', () => {
+    it('displays error message when post fails', () => {
       // implement me!
     })
   })
