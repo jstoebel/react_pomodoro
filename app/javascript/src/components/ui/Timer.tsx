@@ -38,10 +38,8 @@ class Timer extends React.Component<TimerProps, TimerState> {
   }
 
   tick() {
-    console.log(`inside component ${moment()}`);
     const timeLeft = this.state.doneAt.diff(moment())
     if (timeLeft > 0 ) {
-      console.log(moment.utc(timeLeft).format('mm:ss'));
       this.setState({
         timeLeft: moment.utc(timeLeft).format('mm:ss')
       })

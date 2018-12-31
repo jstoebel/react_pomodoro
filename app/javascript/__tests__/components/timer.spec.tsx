@@ -10,6 +10,7 @@ let wrapper
 const totalSeconds = 2;
 describe('<Timer />', () => {
   beforeEach(() => {
+    MockDate.set(mockTime)
     wrapper = mount(
       <Timer
       minutes={0}
@@ -17,11 +18,8 @@ describe('<Timer />', () => {
       />
     )
     timerHandle = wrapper.instance().timerHandle
-    console.log(`mocking time to ${mockTime}`);
-    MockDate.set(mockTime)
   })
   afterEach(() => {
-    console.log('reseting time');
     MockDate.reset();
   })
 
@@ -51,11 +49,8 @@ describe('<Timer />', () => {
 
   describe('tick', () => {
     test('refreshes timeLeft when time remains', () => {
-      // MockDate.reset()
       const newTime = mockTime.add(1, 'second');
-      console.log(`mocking time to ${newTime}`);
       MockDate.set(newTime);
-      console.log(`inside test ${moment()}`);
       wrapper.instance().tick();
       wrapper.update();
       expect(wrapper.state('timeLeft')).toEqual('00:01')
