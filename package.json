@@ -48,6 +48,7 @@
     "react-test-renderer": "^16.6.0",
     "redux-mock-store": "^1.5.3",
     "ts-jest": "^23.10.4",
+    "waait": "^1.0.2",
     "webpack-dev-server": "2.11.2"
   }
 }

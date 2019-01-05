@@ -4,8 +4,16 @@ import Tasks from '../../src/components/ui/Tasks'
 import NewTask from '../../src/components/containers/NewTask'
 import {mount} from 'enzyme';
 import { Task } from '../__support__/fixtures';
-import { MockedProvider } from 'react-apollo/test-utils';
+import { MockedProvider as ApolloMockedProvider } from 'react-apollo/test-utils';
+import { Provider as ReduxProvider } from 'react-redux';
 import allTasks from '../../src/graphql/queries/allTasks';
+import store from '../__support__/store'
+const wait = require('waait');
+
+const tasks = [
+  Task,
+  Task
+]
 
 const mocks = [
   {
@@ -14,19 +22,8 @@ const mocks = [
       variables: {},
     },
     result: {
-      "data": {
-        "allTasks": [
-          {
-            "id": "1",
-            "name": "A Task",
-            "description": "A Description"
-          },
-          {
-            "id": "2",
-            "name": "A Task 2",
-            "description": "A Description 2"
-          },
-        ]
+      data: {
+        allTasks: tasks
       }
     }
   },
@@ -34,24 +31,24 @@ const mocks = [
 
 
 describe('<Home/>', () => {
-  const tasks = [
-    Task,
-    Task
-  ]
   const wrapper = mount(
-    <MockedProvider addTypename={false} mocks={mocks}>
-      <Home />
-    </MockedProvider>
+    <ReduxProvider store={store}>
+      <ApolloMockedProvider addTypename={false} mocks={mocks}>
+        <Home />
+      </ApolloMockedProvider>
+    </ReduxProvider>
   );
 
-  test('renders NewTask', () => {
+
+  test.skip('renders NewTask', async () => {
     expect(wrapper.find(NewTask).length).toEqual(1)
   })
 
-  test('renders Tasks with task data', () => {
+  test('renders Tasks with task data', async () => {
+    await wait(0);
+    wrapper.update()
     const tasksWrapper = wrapper.find(Tasks)
     expect(tasksWrapper.length).toEqual(1)
     expect(tasksWrapper.first().prop('tasks')).toEqual(tasks);
-    
   })
 })

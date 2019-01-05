@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 
-const Task: React.SFC<{onAddTask: Function}> = ({onAddTask}) => {
+const NewTask: React.SFC<{onAddTask: Function}> = ({onAddTask}) => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     const { name, description } = event.target.elements;
@@ -34,4 +34,4 @@ const Task: React.SFC<{onAddTask: Function}> = ({onAddTask}) => {
   )
 }
 
-export default Task
+export default NewTask
