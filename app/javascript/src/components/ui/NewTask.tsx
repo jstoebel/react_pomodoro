@@ -4,7 +4,6 @@ import CREATE_TASK from '../../graphql/queries/createTask'
 import { TaskBaseI } from '../../interfaces/task'
 import ALL_TASKS from '../../../src/graphql/queries/allTasks'
 import { DataProxy } from 'apollo-cache'
-import {FetchResult} from 'apollo-link'
 
 // defines an array of task objects
 interface AllTasksI {
@@ -46,11 +45,12 @@ class NewTask extends React.Component<{}, TaskBaseI> {
   render() {
     const { name, description } = this.state
     return (
-      <div>
+      <div className="new-task">
         <form onSubmit={(event) => this.handleFormSubmit(event)}>
           <div>
             <label>name</label>
             <input
+              className="new-task__name"
               name="name"
               type="text"
               onChange={this.handleInputChange}
@@ -60,6 +60,7 @@ class NewTask extends React.Component<{}, TaskBaseI> {
           <div>
             <label>description</label>
             <input
+              className="new-task__description"
               name="description"
               type="text"
               onChange={this.handleInputChange}
@@ -79,11 +80,3 @@ class NewTask extends React.Component<{}, TaskBaseI> {
 }
 
 export default NewTask
-
-// update = {(cache, { data: { createTask } }) => {
-//   const { allTasks } = cache.readQuery<AllTasksI>({ query: ALL_TASKS })!;
-//   cache.writeQuery({
-//     query: ALL_TASKS,
-//     data: { allTasks: allTasks.concat([createTask]) }
-//   });
-// }}
