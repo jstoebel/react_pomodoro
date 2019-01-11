@@ -2,6 +2,14 @@ import * as React from 'react';
 import { Mutation } from 'react-apollo';
 import CREATE_TASK from '../../graphql/queries/createTask'
 import { TaskBaseI } from '../../interfaces/task'
+import ALL_TASKS from '../../../src/graphql/queries/allTasks'
+import { DataProxy } from 'apollo-cache'
+import {FetchResult} from 'apollo-link'
+
+// defines an array of task objects
+interface AllTasksI {
+  allTasks: Array<TaskBaseI>;
+}
 
 class NewTask extends React.Component<{}, TaskBaseI> {
   constructor(s, p) {
@@ -12,7 +20,8 @@ class NewTask extends React.Component<{}, TaskBaseI> {
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.updateLocalTasks = this.updateLocalTasks.bind(this);
   }
 
   handleInputChange(event) {
@@ -24,6 +33,14 @@ class NewTask extends React.Component<{}, TaskBaseI> {
 
   handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+  }
+
+  updateLocalTasks(cache: DataProxy, createdTask: TaskBaseI) {
+    const { allTasks } = cache.readQuery<AllTasksI>({ query: ALL_TASKS })!;
+    cache.writeQuery({
+      query: ALL_TASKS,
+      data: { allTasks: allTasks.concat([createdTask]) }
+    });
   }
 
   render() {
@@ -48,7 +65,11 @@ class NewTask extends React.Component<{}, TaskBaseI> {
               onChange={this.handleInputChange}
             />
           </div>
-          <Mutation mutation={CREATE_TASK} variables={{ name, description }}>
+          <Mutation 
+            mutation={CREATE_TASK}
+            variables={{ name, description }}
+            update={(cache, result) => this.updateLocalTasks(cache, result.data.createTask)}
+          >
             {createTask => <button onClick={() => {createTask() }}>Submit</button>}
           </Mutation>
         </form>
@@ -58,3 +79,11 @@ class NewTask extends React.Component<{}, TaskBaseI> {
 }
 
 export default NewTask
+
+// update = {(cache, { data: { createTask } }) => {
+//   const { allTasks } = cache.readQuery<AllTasksI>({ query: ALL_TASKS })!;
+//   cache.writeQuery({
+//     query: ALL_TASKS,
+//     data: { allTasks: allTasks.concat([createTask]) }
+//   });
+// }}

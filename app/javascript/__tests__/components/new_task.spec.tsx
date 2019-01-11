@@ -1,4 +1,5 @@
 // see https://github.com/the-road-to-graphql/react-apollo-client-testing-example/tree/master/src
+// for help on mocking the apollo client. TLDR: Its not simple!
 
 import * as React from 'react'
 import NewTask from '../../src/components/ui/NewTask'
@@ -8,16 +9,10 @@ import { Task } from '../__support__/fixtures';
 import { ApolloProvider } from 'react-apollo';
 import { Provider as ReduxProvider } from 'react-redux';
 import store from '../__support__/store'
-import ApolloClient from '../__support__/apolloClient'
+import ApolloClient, {cache} from '../__support__/apolloClient'
+import ALL_TASKS from '../../src/graphql/queries/allTasks'
 
 describe('<NewTask />', () => {
-  // const onAddTaskSpy = jest.fn();
-  // const wrapper = shallow(<NewTask onAddTask={onAddTaskSpy}/>)
-  // test('submitted data passed to onAddTask', () => {
-
-  //   wrapper.find('form').simulate('submit', event)
-  //   expect(onAddTaskSpy).toBeCalledWith(payload)
-  // })
 
   const payload = {
     name: 'a name',
@@ -40,15 +35,31 @@ describe('<NewTask />', () => {
     </ReduxProvider>
   )
 
+  const readQuerySpy = jest.spyOn(cache, 'readQuery')
+  readQuerySpy.mockReturnValue({allTasks: [Task, Task]})
+  const writeQuerySpy = jest.spyOn(cache, 'writeQuery')
+
+  test.skip('typing in fields updates state', () => {
+  })
+
   test('fires create task mutation', () => {
     const createSpy = jest.spyOn(ApolloClient, 'mutate')
     const newForm = wrapper.find('NewTask')
     newForm.setState(payload)
     wrapper.find('button').simulate('click', event)
+
     expect(createSpy.mock.calls[0][0].mutation).toEqual(CREATE_TASK)
     expect(createSpy.mock.calls[0][0].variables).toEqual(payload)
   })
 
-  test.skip('typing in fields updates state', () => {
+
+  test('created task is added to cache', () => {
+    expect(readQuerySpy).toHaveBeenCalledWith({ query: ALL_TASKS })
+    expect(true).toBe(false)
+    // fix this!
+    // expect(writeQuerySpy).toHaveBeenCalledWith({
+    //   query: ALL_TASKS,
+    //   data: { allTasks: allTasks.concat([createdTask]) }
+    // })
   })
 })

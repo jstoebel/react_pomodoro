@@ -22,7 +22,7 @@ export const schema = `
 
 export const resolvers = {
   Query: {
-    allTasks: () => ([sampleTask, sampleTask]),
+    allTasks: () => ({allTasks: [sampleTask, sampleTask]}),
   },
   Mutation: {
     createTask: (name, description) => sampleTask,

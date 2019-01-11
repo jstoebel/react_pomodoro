@@ -6,6 +6,8 @@ import { Query } from 'react-apollo';
 import allTasks from '../../../src/graphql/queries/allTasks'
 
 const Home: React.SFC<{}> = () => {
+  console.log('rendering home');
+  
   return (
     <div>
       <NewTask />
