@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Home from '../../src/components/ui/Home'
 import Tasks from '../../src/components/ui/Tasks'
-import NewTask from '../../src/components/containers/NewTask'
+import NewTask from '../../src/components/ui/NewTask'
 import {mount} from 'enzyme';
 import { Task } from '../__support__/fixtures';
 import { MockedProvider as ApolloMockedProvider } from 'react-apollo/test-utils';

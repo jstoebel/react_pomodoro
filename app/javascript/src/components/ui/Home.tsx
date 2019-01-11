@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Tasks from '../ui/Tasks';
-import NewTask from '../containers/NewTask'
+import NewTask from '../ui/NewTask'
 import { Query } from 'react-apollo';
 import allTasks from '../../../src/graphql/queries/allTasks'
 

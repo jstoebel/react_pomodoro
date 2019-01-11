@@ -11,48 +11,6 @@ beforeEach(() => {
 })
 
 describe('actions', () => {
-  describe('fetchTasks', () => {
-    it('dispatches tasks', async () => {
-      // finish this test 
-      const getData = jest.fn();
-
-      axiosMock.onGet('/tasks')
-               .reply(200, getData)
-
-      const innerFn = actions.fetchTasks()
-      await innerFn(dispatchSpy)
-      expect(dispatchSpy).toHaveBeenCalledWith({
-        type: C.ADD_TASKS,
-        payload: getData,
-      });
-    })
-
-    it('displays error message when fetch fails', () => {
-      // implement me!
-    })
-  })
-
-  describe('addTask', () => {
-    const postData = {
-      name: 'task name',
-      description: 'task description',
-    }
-    it('dispatches taskData', async () => {
-      axiosMock.onPost('/tasks', postData)
-        .reply(200, {})
-
-      const innerFn = actions.addTask(postData)
-      await innerFn(dispatchSpy)
-      expect(dispatchSpy).toHaveBeenCalledWith({
-        type: C.ADD_TASKS,
-        payload: postData
-      })
-    })
-
-    it('displays error message when post fails', () => {
-      // implement me!
-    })
-  })
 
   describe('startPomodoro', () => {
     it('returns correct object', () => {
