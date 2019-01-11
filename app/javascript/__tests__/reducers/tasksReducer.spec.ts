@@ -18,6 +18,7 @@ const anotherTask = [
 
 describe('tasksReducer', () => {
   describe('ADD_TASKS', ()=> {
+    // short hand for calling the tasks reducer
     const addTask = (currentTasks: TaskBaseI[], newTasks: TaskBaseI[]) => {
       return tasksReducer(
         currentTasks,

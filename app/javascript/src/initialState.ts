@@ -1,3 +1,6 @@
 export default {
-  tasks: []
+  tasks: [],
+  notifications: [
+    {message: 'this is a notification'}
+  ],
 }

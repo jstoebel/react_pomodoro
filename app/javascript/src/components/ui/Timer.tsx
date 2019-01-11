@@ -1,5 +1,4 @@
 import * as React from 'react'
-import PomodoroI from '../../interfaces/pomodoro'
 import * as moment from 'moment';
 import Typography from '@material-ui/core/Typography';
 import Sound from 'react-sound';

@@ -4,7 +4,9 @@ const constants = {
   STOP_POMODORO: 'STOP_POMODORO',
   ADD_TASKS: 'ADD_TASKS',
   REMOVE_TASK: 'REMOVE_TASK',
-  POMODORO_TIME: {minutes: 0, seconds: 2}
+  ADD_NOTIFICATION: 'ADD_NOTIFICATION',
+  REMOVE_NOTIFICATION: 'REMOVE_NOTIFICATION',
+  POMODORO_TIME: {minutes: 0, seconds: 2},
 };
 
 export default constants;
