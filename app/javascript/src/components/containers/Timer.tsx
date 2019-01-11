@@ -1,4 +1,4 @@
-import { startPomodoro, stopPomodoro } from '../../actions';
+import { stopPomodoro } from '../../actions';
 import { connect } from 'react-redux';
 import Timer from '../ui/Timer'
 

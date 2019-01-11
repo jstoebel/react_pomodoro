@@ -1,11 +1,12 @@
 import {applyMiddleware, createStore, compose} from 'redux';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import reducers from '../src/reducers/index';
 import * as React from 'react';
 import {Provider} from 'react-redux';
 import reduxThunk from 'redux-thunk';
 import {render} from 'react-dom';
 import App from '../src/components/ui/App'
+import { ApolloProvider } from "react-apollo";
+import client from '../src/apollo_client';
 import '../src/fonts';
 
 import startingState from '../src/initialState';
@@ -32,7 +33,9 @@ const store = createStore(reducers, initialState, composeEnhancers(applyMiddlewa
 
 const statefulStore = (
   <Provider store={store}>
-    <App/>
+    <ApolloProvider client={client}>
+      <App/>
+    </ApolloProvider>
   </Provider>
 )
 render(

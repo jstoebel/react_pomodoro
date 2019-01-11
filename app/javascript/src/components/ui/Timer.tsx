@@ -8,6 +8,7 @@ import Sound from 'react-sound';
 interface TimerProps {
   minutes: Number,
   seconds: Number,
+  onStopPomodoro: Function
 }
 
 interface TimerState {
@@ -51,6 +52,7 @@ class Timer extends React.Component<TimerProps, TimerState> {
     // what happens when the pomodoro is done?
     // play a sound
     // notification -> "your pomodoro is done, write a reflection?"
+    this.props.onStopPomodoro()
     clearInterval(this.timerHandle)
     this.setState({running: false})
   }

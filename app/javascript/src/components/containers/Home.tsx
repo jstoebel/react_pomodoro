@@ -1,4 +1,3 @@
-import { fetchTasks } from '../../actions';
 import { connect } from 'react-redux';
 import Home from '../ui/Home';
 
@@ -8,15 +7,7 @@ const mapStateToProps = (state) => {
   });
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onFetchTasks() {
-      dispatch(
-        fetchTasks()
-      )
-    }
-  }
-}
+const mapDispatchToProps = () => new Object
 /*
   this function ensures that any props passed into the container
   (i.e. <LoginContainer spam={eggs}) will override anything mapped out

@@ -1,9 +1,12 @@
 import * as React from 'react';
 import Timer from '../../src/components/ui/Timer';
 import {mount} from 'enzyme'
+import {stopPomodoro} from '../../src/actions'
+
 import * as moment from 'moment';
 const MockDate = require('mockdate')
 
+const stopPomodoroSpy = jest.fn()
 const mockTime = moment('2000-01-01')
 let timerHandle;
 let wrapper
@@ -13,8 +16,9 @@ describe('<Timer />', () => {
     MockDate.set(mockTime)
     wrapper = mount(
       <Timer
-      minutes={0}
-      seconds={totalSeconds}
+        minutes={0}
+        seconds={totalSeconds}
+        onStopPomodoro={stopPomodoroSpy}
       />
     )
     timerHandle = wrapper.instance().timerHandle
@@ -45,6 +49,7 @@ describe('<Timer />', () => {
       wrapper.unmount();
       expect(clearInterval).toHaveBeenLastCalledWith(timerHandle)
     })
+
   })
 
   describe('tick', () => {
@@ -78,6 +83,10 @@ describe('<Timer />', () => {
     test('updates state', () => {
       wrapper.update();
       expect(wrapper.state('running')).toBe(false)
+    })
+
+    test('stops pomodoro', () => {
+      expect(stopPomodoroSpy).toBeCalledWith()
     })
   })
 
