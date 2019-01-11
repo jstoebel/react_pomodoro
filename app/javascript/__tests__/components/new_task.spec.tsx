@@ -15,11 +15,11 @@ import ALL_TASKS from '../../src/graphql/queries/allTasks'
 describe('<NewTask />', () => {
 
   const payload = {
-    name: 'a name',
-    description: 'a description'
+    name: Task.name,
+    description: Task.description
   }
 
-  const event = {
+  const clickEvent = {
     preventDefault: jest.fn(),
     target: {
       name: { value: payload.name },
@@ -34,32 +34,37 @@ describe('<NewTask />', () => {
       </ApolloProvider>
     </ReduxProvider>
   )
-
+  const existingTasks = [Task, Task]
   const readQuerySpy = jest.spyOn(cache, 'readQuery')
-  readQuerySpy.mockReturnValue({allTasks: [Task, Task]})
+  readQuerySpy.mockReturnValue({ allTasks: existingTasks})
   const writeQuerySpy = jest.spyOn(cache, 'writeQuery')
+  const newForm = wrapper.find('NewTask')
 
-  test.skip('typing in fields updates state', () => {
+  test('typing in fields updates state', () => {
+    const nameInput = newForm.find('input.new-task__name')
+    const descriptionInput = newForm.find('input.new-task__description')
+
+    nameInput.simulate('change', { target: { name: 'name', value: 'spam' } })
+    descriptionInput.simulate('change', { target: { name: 'description', value: 'eggs' } })
+
+    expect(newForm.state()).toEqual({name: 'spam', description: 'eggs'})
   })
 
   test('fires create task mutation', () => {
     const createSpy = jest.spyOn(ApolloClient, 'mutate')
-    const newForm = wrapper.find('NewTask')
     newForm.setState(payload)
-    wrapper.find('button').simulate('click', event)
+    wrapper.find('button').simulate('click', clickEvent)
 
     expect(createSpy.mock.calls[0][0].mutation).toEqual(CREATE_TASK)
     expect(createSpy.mock.calls[0][0].variables).toEqual(payload)
   })
 
-
   test('created task is added to cache', () => {
+    newForm.instance().updateLocalTasks(cache, Task)
     expect(readQuerySpy).toHaveBeenCalledWith({ query: ALL_TASKS })
-    expect(true).toBe(false)
-    // fix this!
-    // expect(writeQuerySpy).toHaveBeenCalledWith({
-    //   query: ALL_TASKS,
-    //   data: { allTasks: allTasks.concat([createdTask]) }
-    // })
+    expect(writeQuerySpy).toHaveBeenCalledWith({
+      query: ALL_TASKS,
+      data: { allTasks: existingTasks.concat([Task]) }
+    })
   })
 })

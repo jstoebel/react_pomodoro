@@ -8,11 +8,13 @@ import { MockedProvider as ApolloMockedProvider } from 'react-apollo/test-utils'
 import { Provider as ReduxProvider } from 'react-redux';
 import allTasks from '../../src/graphql/queries/allTasks';
 import store from '../__support__/store'
+
 const wait = require('waait');
 
+const { __typename, ...sampleTask } = Task;
 const tasks = [
-  Task,
-  Task
+  sampleTask,
+  sampleTask,
 ]
 
 const mocks = [
@@ -40,7 +42,7 @@ describe('<Home/>', () => {
   );
 
 
-  test.skip('renders NewTask', async () => {
+  test('renders NewTask', async () => {
     expect(wrapper.find(NewTask).length).toEqual(1)
   })
 
