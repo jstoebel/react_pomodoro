@@ -50,9 +50,6 @@ describe('<Timer />', () => {
       expect(clearInterval).toHaveBeenLastCalledWith(timerHandle)
     })
 
-    test('pomodoro is stopped', () => {
-      expect(stopPomodoroSpy).toBeCalledWith()
-    })
   })
 
   describe('tick', () => {
