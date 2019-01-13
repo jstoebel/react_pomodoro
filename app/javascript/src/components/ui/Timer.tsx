@@ -2,6 +2,8 @@ import * as React from 'react'
 import * as moment from 'moment';
 import Typography from '@material-ui/core/Typography';
 import Sound from 'react-sound';
+import { toast } from 'react-toastify';
+import ToastWrapper from './ToastWrapper'
 // const pomodoroDone = require('../../media/pomodoroDone.mp3')
 
 interface TimerProps {
@@ -55,7 +57,7 @@ class Timer extends React.Component<TimerProps, TimerState> {
     this.setState({running: false})
     clearInterval(this.timerHandle)
     this.props.onStopPomodoro()
-    this.props.onAddNotification({message: 'Pomodoro is done. Write a relfection?', level: 'success', linkPath: '/reflect' })
+    toast.success(<ToastWrapper message={'Pomodoro is done.'} linkPath={'/reflect'} linkText={'Write a reflection?'}/>)
   }
 
   render() {
