@@ -1,7 +1,5 @@
 import * as React from 'react'
 import Task from '../../src/components/ui/Task'
-import StartButton from '../../src/components/ui/StartButton'
-import StopButton from '../../src/components/ui/StopButton'
 import { mount } from 'enzyme';
 import {Task as TaskFixture} from '../__support__/fixtures';
 import { createStore } from 'redux';
@@ -13,7 +11,8 @@ describe('<Task />', () => {
     key: 1,
     onStartPomodoro: jest.fn(),
     onStopPomodoro: jest.fn(),
-    ...TaskFixture
+    ...TaskFixture,
+    id: 1
   }
   describe('timer is not running', () => {
     test('renders start button', () => {

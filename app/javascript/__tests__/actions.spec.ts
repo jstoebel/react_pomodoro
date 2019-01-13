@@ -1,14 +1,6 @@
 import * as actions from '../src/actions';
 import C from '../src/constants';
-import MockAdapter from 'axios-mock-adapter'
-import axios from 'axios'
-
-const axiosMock = new MockAdapter(axios)
-const dispatchSpy = jest.fn()
-
-beforeEach(() => {
-  axiosMock.reset();
-})
+import {Notification} from './__support__/fixtures'
 
 describe('actions', () => {
 
@@ -28,6 +20,24 @@ describe('actions', () => {
       expect(result).toEqual({
         type: C.STOP_POMODORO,
         payload: null,
+      })
+    })
+  })
+
+  describe('addNotificaiton', () => {
+    it('adds a notification', () => {
+      const result = actions.addNotification(Notification)
+      expect(result).toEqual({
+        type: C.ADD_NOTIFICATION,
+        payload: Notification
+      })
+    })
+
+    it('removes a notificaiton', () => {
+      const result = actions.removeNotification(1)
+      expect(result).toEqual({
+        type: C.REMOVE_NOTIFICATION,
+        payload: 1
       })
     })
   })

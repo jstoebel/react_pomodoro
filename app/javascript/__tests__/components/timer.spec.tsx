@@ -7,6 +7,7 @@ import * as moment from 'moment';
 const MockDate = require('mockdate')
 
 const stopPomodoroSpy = jest.fn()
+const addNotificationSpy = jest.fn()
 const mockTime = moment('2000-01-01')
 let timerHandle;
 let wrapper
@@ -19,6 +20,7 @@ describe('<Timer />', () => {
         minutes={0}
         seconds={totalSeconds}
         onStopPomodoro={stopPomodoroSpy}
+        onAddNotification={addNotificationSpy}
       />
     )
     timerHandle = wrapper.instance().timerHandle
@@ -87,6 +89,14 @@ describe('<Timer />', () => {
 
     test('stops pomodoro', () => {
       expect(stopPomodoroSpy).toBeCalledWith()
+    })
+
+    test('adds pomodoro', () => {
+      expect(addNotificationSpy).toBeCalledWith({
+        message: 'Pomodoro is done. Write a relfection?',
+        level: 'success',
+        linkPath: '/reflect',
+      })
     })
   })
 

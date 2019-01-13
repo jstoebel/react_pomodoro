@@ -6,5 +6,6 @@ export interface TaskBaseI {
 export interface TaskI extends TaskBaseI {
   id: Number,
   created_at: String,
-  updated_at: String
+  updated_at: String,
+  __typename: String,
 }

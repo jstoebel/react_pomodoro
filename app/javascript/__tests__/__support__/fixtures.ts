@@ -13,8 +13,8 @@ export const Task: TaskI = Object.assign(
   TaskBase,
   {
     id: 1,
-    created_at: 'created_at',
-    updated_at: 'updated_at',
+    created_at: '1/1/2019',
+    updated_at: '1/1/2019',
     __typename: 'Task'
   }
 )
@@ -23,4 +23,5 @@ export const Notification: NotificationI = {
   message: 'a test message',
   level: 'info',
   linkPath: '/more-info',
+  linkText: 'more info'
 }

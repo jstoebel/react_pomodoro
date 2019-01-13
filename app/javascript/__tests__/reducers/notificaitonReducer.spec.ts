@@ -16,7 +16,7 @@ const anotherNotification: NotificationI = {
 
 describe('notifcationsReducer', () => {
   describe('ADD_NOTIFICATION', () => {
-    const addNotification = (currentNotifications: NotificationI[], newNotifications: NotificationI) => {
+    const addNotification = (currentNotifications: NotificationI[], newNotifications: NotificationI | number) => {
       return notifcationsReducer(
         currentNotifications,
         {
@@ -36,12 +36,12 @@ describe('notifcationsReducer', () => {
     })
 
     it('throws error when passed a number', () => {
-      expect(false).toBeTruthy()
+      expect(() => {addNotification([aNotification], 1)}).toThrow(Error)
     })
   })
 
   describe('REMOVE_NOTIFICATION', () => {
-    const removeNotification = (currentNotifications: NotificationI[], index: number) => {
+    const removeNotification = (currentNotifications: NotificationI[], index: number | NotificationI) => {
       return notifcationsReducer(
         currentNotifications,
         {
@@ -61,7 +61,7 @@ describe('notifcationsReducer', () => {
     })
 
     it('throws error when passed a notification', () => {
-      expect(false).toBeTruthy()
+      expect(() => {removeNotification([aNotification], anotherNotification)}).toThrow(Error)
     })
   })
 

@@ -8,7 +8,6 @@ const App: React.SFC<{}> = (props) => {
 
   return (
     <div>
-      <Notifications />
       <Router>
         <div>
           <Switch>
