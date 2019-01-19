@@ -10,22 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181022105838) do
+ActiveRecord::Schema.define(version: 20181020202022) do
 
   create_table "pomodoros", force: :cascade do |t|
     t.string "title"
-    t.text "description"
+    t.text "reflection"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.integer "tasks_id"
+    t.integer "task_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tasks_id"], name: "index_pomodoros_on_tasks_id"
-  end
-
-  create_table "spams", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_pomodoros_on_task_id"
   end
 
   create_table "tasks", force: :cascade do |t|

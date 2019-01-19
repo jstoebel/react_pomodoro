@@ -23,22 +23,4 @@ describe('actions', () => {
       })
     })
   })
-
-  describe('addNotificaiton', () => {
-    it('adds a notification', () => {
-      const result = actions.addNotification(Notification)
-      expect(result).toEqual({
-        type: C.ADD_NOTIFICATION,
-        payload: Notification
-      })
-    })
-
-    it('removes a notificaiton', () => {
-      const result = actions.removeNotification(1)
-      expect(result).toEqual({
-        type: C.REMOVE_NOTIFICATION,
-        payload: 1
-      })
-    })
-  })
 })

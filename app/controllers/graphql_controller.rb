@@ -8,6 +8,7 @@ class GraphqlController < ApplicationController
       # current_user: current_user,
     }
     result = PomodoroReactSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+    puts result.to_h
     render json: result
   end
 

@@ -1,22 +1,22 @@
 import * as React from 'react'
 import * as moment from 'moment';
 import Typography from '@material-ui/core/Typography';
-import Sound from 'react-sound';
 import { toast } from 'react-toastify';
-import ToastWrapper from './ToastWrapper'
-// const pomodoroDone = require('../../media/pomodoroDone.mp3')
+import ToastWrapper from './ToastWrapper';
+import createPomodoro from '../../services/createPomodoro';
+const pomodoroDone = require('../../media/pomodoroDone.mp3')
 
 interface TimerProps {
   minutes: Number,
   seconds: Number,
   onStopPomodoro: Function,
-  onAddNotification: Function,
+  taskId: Number,
 }
 
 interface TimerState {
   timeLeft: String,
   doneAt: moment.Moment,
-  running: Boolean,
+  finished: Boolean,
 }
 
 class Timer extends React.Component<TimerProps, TimerState> {
@@ -31,7 +31,7 @@ class Timer extends React.Component<TimerProps, TimerState> {
       doneAt: moment()
         .add(minutes as unknown as moment.unitOfTime.DurationConstructor, 'minutes')
         .add(seconds as unknown as moment.unitOfTime.DurationConstructor, 'seconds'),
-      running: true,
+      finished: false,
     }
     this.timerHandle = setInterval(this.tick.bind(this), 100)
   }
@@ -50,26 +50,39 @@ class Timer extends React.Component<TimerProps, TimerState> {
       this.wrapUp()
     }
   }
+
+  /**
+   * triggered when the Timer is done
+   *  - clears the interval
+   *  - fires a mutation to create a pomodoro
+   */
   wrapUp() {
-    // what happens when the pomodoro is done?
-    // play a sound
-    // notification -> "your pomodoro is done, write a reflection?"
-    this.setState({running: false})
     clearInterval(this.timerHandle)
+    createPomodoro({
+      taskId: Number(this.props.taskId),
+      endTime: this.state.doneAt.format('YYYY-MM-DD HH:mm:ss')
+    }).then(this.onMutationCompleted)
+  }
+
+  onMutationCompleted(data) {
+    toast.success(<ToastWrapper message={'Pomodoro is done.'} linkPath={`/reflect/${1}`} linkText={'Write a reflection?'} />)
+    const audio = new Audio(pomodoroDone)
+    audio.play();
     this.props.onStopPomodoro()
-    toast.success(<ToastWrapper message={'Pomodoro is done.'} linkPath={'/reflect'} linkText={'Write a reflection?'}/>)
+  }
+
+  onMutationError(error: Error) {
+
   }
 
   render() {
-    const soundPlayStatus = this.state.running ? Sound.status.STOPPED : Sound.status.PLAYING
-    return(
-      <div>
-        <Typography variant = "display1">
-          {this.state.timeLeft}
-        </Typography >
-        {/* <Sound url={pomodoroDone} playStatus={soundPlayStatus} /> */}
-      </div>
-    )
+      return(
+        <div>
+          <Typography variant = "display1">
+            {this.state.timeLeft}
+          </Typography >
+        </div>
+      )
   }
 }
 

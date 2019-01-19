@@ -7,11 +7,14 @@ const aNotification: NotificationI = {
           message: 'first message',
           level: "info",
           linkPath: 'more-info',
+          linkText: '/reflect'
 };
 const anotherNotification: NotificationI = {
           message: 'second message',
           level: "info",
           linkPath: 'more-info',
+          linkText: '/reflect'
+
 };
 
 describe('notifcationsReducer', () => {

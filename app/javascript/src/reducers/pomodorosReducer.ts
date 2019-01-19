@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import C from '../constants';
-import PomodoroI from '../interfaces/pomodoro'
+import {PomodoroI} from '../interfaces/pomodoro'
 import * as moment from 'moment';
 /*
   handles keeping track of which task (if any) is running a pomodoro.

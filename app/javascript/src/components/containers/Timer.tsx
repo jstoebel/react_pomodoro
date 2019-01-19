@@ -1,4 +1,4 @@
-import { stopPomodoro, addNotification } from '../../actions';
+import { stopPomodoro } from '../../actions';
 import { connect } from 'react-redux';
 import Timer from '../ui/Timer'
 
@@ -15,11 +15,6 @@ const mapDispatchToProps = (dispatch) => {
         stopPomodoro()
       )
     },
-    onAddNotification(notification) {
-      dispatch(
-        addNotification(notification)
-      )
-    }
   }
 }
 
