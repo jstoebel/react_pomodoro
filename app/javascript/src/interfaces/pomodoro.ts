@@ -6,6 +6,6 @@ export interface PomodoroRecordI {
   id: Number,
   title: string,
   reflection: string,
-  endTime: string,
+  end_time: string,
   taskId: number, 
 }

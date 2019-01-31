@@ -3,7 +3,7 @@ class Resolvers::UpdatePomodoro < GraphQL::Function
   argument :id, !types.ID
   argument :title, types.String
   argument :reflection, types.String
-  argument :endTime, types.String
+  argument :end_time, types.String
   # return type from the mutation
   type Types::PomodoroType
 
@@ -14,10 +14,11 @@ class Resolvers::UpdatePomodoro < GraphQL::Function
   def call(_obj, args, _ctx)
     pomodoro = Pomodoro.find args[:id]
 
-    pomodoro.update_attributes!(
+    pomodoro.update_attributes(
       title: args[:title],
       reflection: args[:reflection],
       end_time: args[:end_time]
     )
+    pomodoro
   end
 end

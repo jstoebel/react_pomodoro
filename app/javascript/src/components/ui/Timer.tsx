@@ -64,8 +64,8 @@ class Timer extends React.Component<TimerProps, TimerState> {
     }).then(this.onMutationCompleted)
   }
 
-  onMutationCompleted(data) {
-    toast.success(<ToastWrapper message={'Pomodoro is done.'} linkPath={`/reflect/${1}`} linkText={'Write a reflection?'} />)
+  onMutationCompleted({data}) {
+    toast.success(<ToastWrapper message={'Pomodoro is done.'} linkPath={`/reflect/${data.createPomodoro.id}`} linkText={'Write a reflection?'} />)
     const audio = new Audio(pomodoroDone)
     audio.play();
     this.props.onStopPomodoro()

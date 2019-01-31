@@ -8,7 +8,8 @@ import App from '../src/components/ui/App'
 import { ApolloProvider } from "react-apollo";
 import client from '../src/apollo_client';
 import '../src/fonts';
-
+import {BrowserRouter} from 'react-router-dom'
+import { createBrowserHistory } from 'history';
 import startingState from '../src/initialState';
 
 /* set up of store
@@ -30,13 +31,16 @@ declare global {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducers, initialState, composeEnhancers(applyMiddleware(reduxThunk)))
+const history = createBrowserHistory()
 
 const statefulStore = (
-  <Provider store={store}>
-    <ApolloProvider client={client}>
-      <App/>
-    </ApolloProvider>
-  </Provider>
+  <BrowserRouter>
+    <Provider store={store}>
+      <ApolloProvider client={client}>
+        <App/>
+      </ApolloProvider>
+    </Provider>
+  </BrowserRouter>
 )
 render(
   statefulStore, 

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Home from '../containers/Home';
 import EditPomodoro from '../containers/EditPomodoro'
 import NotFound from './NotFound'
@@ -10,7 +10,6 @@ const App: React.SFC<{}> = (props) => {
  
   return (
     <div>
-      <Router>
         <div>
           <ToastContainer 
             autoClose={false}
@@ -22,7 +21,6 @@ const App: React.SFC<{}> = (props) => {
             <Route component={NotFound}/>
           </Switch>
         </div>
-      </Router>
     </div>
   )
 }
